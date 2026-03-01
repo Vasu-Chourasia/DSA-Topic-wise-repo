@@ -1,0 +1,50 @@
+Category
+Greedy
+
+Name of the Problem
+Partitioning Into Minimum Number of Deci-Binary Numbers
+
+Concept in which the Question is Based On
+Greedy Strategy
+Mathematical Observation
+Digit Analysis
+
+Idea / Approach to Solve the Problem
+
+A deci-binary number consists only of digits 0 and 1 and has no leading zeros. We are asked to represent a decimal number n as the sum of the minimum number of such deci-binary numbers.
+
+The crucial observation is that each deci-binary number can contribute at most 1 to any digit position. Therefore, if a particular digit in n is equal to d, we need at least d deci-binary numbers to construct that digit through summation.
+
+For example:
+If a digit is 7 at some position, then we need at least 7 deci-binary numbers contributing 1 at that position to form 7.
+
+Therefore, the minimum number of deci-binary numbers required is equal to the maximum digit present in the string.
+
+Steps:
+
+Traverse the string representation of n.
+
+Track the maximum digit encountered.
+
+Return that maximum digit.
+
+This works because:
+
+Each deci-binary number acts like a layer.
+
+The highest digit determines how many such layers are required.
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+Solution in Java (Driver Function Only)
+
+public int minPartitions(String n) {
+    int maxDigit = 0;
+
+    for (int i = 0; i < n.length(); i++) {
+        maxDigit = Math.max(maxDigit, n.charAt(i) - '0');
+    }
+
+    return maxDigit;
+}
