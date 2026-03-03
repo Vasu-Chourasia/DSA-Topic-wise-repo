@@ -8,7 +8,8 @@ from pathlib import Path
 url = input("Enter LeetCode problem URL: ").strip()
 topic = input("Enter Topic Folder (example: 01-Arrays): ").strip()
 
-# -------- EXTRACT SLUG --------
+# -------- CLEAN URL --------
+url = url.split("?")[0]
 slug = url.rstrip("/").split("/")[-1]
 
 # -------- GRAPHQL API --------
@@ -30,8 +31,8 @@ query = {
 response = requests.post(api_url, json=query)
 data = response.json()
 
-if "errors" in data:
-    print("Invalid URL or LeetCode API issue.")
+if not data.get("data") or not data["data"].get("question"):
+    print("❌ Invalid URL or LeetCode API issue.")
     exit()
 
 title = data["data"]["question"]["title"]
@@ -46,7 +47,7 @@ source = Path("solution.java")
 destination = Path(topic) / filename
 
 if not source.exists():
-    print("solution.java file not found!")
+    print("❌ solution.java file not found!")
     exit()
 
 source.rename(destination)
@@ -63,7 +64,6 @@ if readme_path.exists():
         content = re.sub(r"Total Problems Solved:\s*\d+",
                          f"Total Problems Solved: {count}",
                          content)
-
         readme_path.write_text(content)
 
 # -------- GIT COMMANDS --------
@@ -72,4 +72,4 @@ subprocess.run(["git", "commit", "-m",
                 f"Added {title} (LC-{problem_number}) - {difficulty}"])
 subprocess.run(["git", "push"])
 
-print("\nUploaded Successfully ")
+print("\n✅ Uploaded Successfully ")
