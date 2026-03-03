@@ -47,7 +47,7 @@ To master problem-solving patterns and prepare for product-based company intervi
 
 - Total Problems Solved: 5
 - Easy: 1
-- Medium: 3
+- Medium: 4  
 - Hard: 1
 
 ---
