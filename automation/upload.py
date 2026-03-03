@@ -76,9 +76,27 @@ if readme_path.exists():
     readme_path.write_text(content)
 
 # -------- GIT COMMANDS --------
-subprocess.run(["git", "add", "."])
-subprocess.run(["git", "commit", "-m",
-                f"Added {title} (LC-{problem_number}) - {difficulty}"])
-subprocess.run(["git", "push"])
+def run_git_command(command):
+    result = subprocess.run(command, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"\n❌ Error running: {' '.join(command)}")
+        print(result.stderr)
+        exit()
+    return result
 
-print("\n✅ Uploaded Successfully ")
+run_git_command(["git", "add", "."])
+run_git_command(["git", "commit", "-m",
+                f"Added {title} (LC-{problem_number}) - {difficulty}"])
+
+# Try pushing
+push_result = subprocess.run(["git", "push"], capture_output=True, text=True)
+
+if push_result.returncode != 0:
+    print("\n⚠️ Push failed. Attempting to rebase and retry...")
+    
+    run_git_command(["git", "pull", "origin", "main", "--rebase"])
+    run_git_command(["git", "push"])
+    
+    print("\n✅ Uploaded Successfully after rebase!")
+else:
+    print("\n✅ Uploaded Successfully!")
