@@ -1,4 +1,3 @@
-import os
 import requests
 import subprocess
 import re
@@ -52,19 +51,29 @@ if not source.exists():
 
 source.rename(destination)
 
-# -------- UPDATE README --------
+# -------- UPDATE README COUNTERS --------
 readme_path = Path("README.md")
 
 if readme_path.exists():
     content = readme_path.read_text()
 
-    match = re.search(r"Total Problems Solved:\s*(\d+)", content)
-    if match:
-        count = int(match.group(1)) + 1
+    # Update Total
+    total_match = re.search(r"Total Problems Solved:\s*(\d+)", content)
+    if total_match:
+        total_count = int(total_match.group(1)) + 1
         content = re.sub(r"Total Problems Solved:\s*\d+",
-                         f"Total Problems Solved: {count}",
+                         f"Total Problems Solved: {total_count}",
                          content)
-        readme_path.write_text(content)
+
+    # Update Difficulty Counter
+    diff_match = re.search(rf"{difficulty}:\s*(\d+)", content)
+    if diff_match:
+        diff_count = int(diff_match.group(1)) + 1
+        content = re.sub(rf"{difficulty}:\s*\d+",
+                         f"{difficulty}: {diff_count}",
+                         content)
+
+    readme_path.write_text(content)
 
 # -------- GIT COMMANDS --------
 subprocess.run(["git", "add", "."])
