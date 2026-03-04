@@ -64,7 +64,7 @@ To master problem-solving patterns and prepare for product-based company intervi
 
 ## 📌 Connect With Me
 
-- LinkedIn: www.linkedin.com/in/vasu-chourasia
+- LinkedIn: https://www.linkedin.com/in/vasu-chourasia
 - LeetCode: https://leetcode.com/u/VasuChourasia/
 
 ---
