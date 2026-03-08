@@ -1,6 +1,5 @@
 class Solution {
     boolean pythagoreanTriplet(int[] arr) {
-        int n = arr.length;
         int maxEle = 0;
         for (int ele : arr) maxEle = Math.max(maxEle, ele);
 
