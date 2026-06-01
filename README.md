@@ -45,8 +45,8 @@ To master problem-solving patterns and prepare for product-based company intervi
 
 ## 📈 Progress Tracking
 
-- Total Problems Solved: 90
-- Easy: 24
+- Total Problems Solved: 91
+- Easy: 25
 - Medium: 50  
 - Hard: 17
 
